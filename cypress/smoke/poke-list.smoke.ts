@@ -1,8 +1,11 @@
 
 describe('Page list component', () => {
 
+  before(() => {
+    cy.visit('http://localhost:4200/');
+  });
+
   it('Renders list of pokemons on entry', () => {
-    cy.visit('http://localhost:4200/')
     cy.get('app-poke-list').should('be.visible');
   });
 
@@ -37,7 +40,12 @@ describe('Page list component', () => {
     cy.wait(1000);
     cy.getElement('poke-list-item').should('have.length', 3).first().then((row => {
       cy.wrap(row).find('[data-smoke="poke-name"]').contains('abra');
-    }))
-  })
+    }));
+    cy.getElement('poke-clear-search').invoke('show').click();
+    cy.wait(1000);
+    cy.getElement('poke-list-item').should('have.length', 20).first().then((row => {
+      cy.wrap(row).find('[data-smoke="poke-name"]').contains('abomasnow');
+    }));
+  });
 
 })
