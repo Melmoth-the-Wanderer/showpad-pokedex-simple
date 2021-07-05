@@ -1,0 +1,12 @@
+<h2
+  *ngIf="pdTitle"
+  nz-typography
+>{{ pdTitle }}</h2>
+
+<poke-paginated-pokemon-list
+  [pdPokemonList]="pdPokeList"
+  [pdElementsTotal]="pdElementsTotal"
+  [pdSpinning]="pdRefreshingPokemons"
+  (pdPageIndexChange)="pageIndexChange($event)"
+  (pdPageSizeChange)="pageSizeChange($event)"
+></poke-paginated-pokemon-list>

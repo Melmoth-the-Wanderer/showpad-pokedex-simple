@@ -1,0 +1,48 @@
+<nz-layout class="poke-main-layout">
+  <nz-sider
+    [nzWidth]="'200px'"
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+  >
+    <div class="logo"></div>
+    <ul
+      data-smoke="app-menu"
+      nz-menu
+      [nzTheme]="'dark'"
+      [nzMode]="'inline'"
+    >
+      <li
+        [routerLink]="'/poke-list'"
+        nz-menu-item
+      >
+        <i
+          nz-icon
+          [nzType]="'profile'"
+        ></i>
+        <span>All Pokemons</span>
+      </li>
+      <li
+        [routerLink]="'/my-pokemons'"
+        nz-menu-item
+      >
+        <i
+          nz-icon
+          [nzType]="'check-circle'"
+        ></i>
+        <span>My Pokemons</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header class="poke-page-header">
+      <h1 nz-typography class="poke-page-header-title">Welcome to Pokedex</h1>
+    </nz-header>
+    <nz-content>
+      <div class="poke-inner-content">
+        <router-outlet></router-outlet>
+        <router-outlet name="drawer-outlet"></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.poke-search-clear-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.poke-input-icon-placeholder:hover {
+  .poke-search-clear-icon {
+    display: inline-block;
+  }
+}

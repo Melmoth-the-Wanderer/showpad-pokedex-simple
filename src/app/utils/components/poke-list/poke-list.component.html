@@ -1,0 +1,86 @@
+<nz-list
+  *ngIf="pdPokemonList && pdPokemonList.length"
+  [nzPagination]="pagination"
+>
+  <nz-list-item
+    *ngFor="let pokemon of pdPokemonList"
+    data-smoke="poke-list-item"
+  >
+    <nz-list-item-meta
+      [nzAvatar]="pokemon.sprites.front_default"
+      [nzDescription]="pokeDescription"
+    >
+      <nz-list-item-meta-title
+        data-smoke="poke-name"
+        class="poke-pokemon-name"
+      >
+        {{ pokemon.name }}
+      </nz-list-item-meta-title>
+    </nz-list-item-meta>
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a
+          data-smoke="poke-action-catch"
+          [attr.disabled]="isCaught(pokemon.name) ? '' : null"
+          nz-popover
+          [nzPopoverContent]="catchPopoverContent"
+          [nzPopoverTrigger]="'click'"
+        >catch</a>
+      </nz-list-item-action>
+      <nz-list-item-action>
+        <a
+          data-smoke="poke-action-release"
+          (click)="releasePokemon(pokemon.name)"
+          [attr.disabled]="!isCaught(pokemon.name) ? '' : null"
+        >release</a>
+      </nz-list-item-action>
+      <nz-list-item-action>
+        <a
+          data-smoke="poke-action-details"
+          (click)="showDetails(pokemon.name)"
+        >details</a>
+      </nz-list-item-action>
+    </ul>
+
+    <ng-template #pokeDescription>
+      <ng-container *ngIf="pokeTypesByName">
+        {{ pokeTypesByName[pokemon.name] }}
+      </ng-container>
+      <ng-container *ngIf="!pokeTypesByName">
+        <span class="poke-text-emphasis">type unknown</span>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #catchPopoverContent>
+      <button
+        data-smoke="poke-action-catch-wishlist-button"
+        (click)="wishlistPokemon(pokemon.name)"
+        class="poke-popover-action"
+        nz-button
+        [disabled]="isWishlisted(pokemon.name) || isCaught(pokemon.name)"
+        nzBlock
+        [nzSize]="'small'"
+      >Wishlist</button>
+      <button
+        data-smoke="poke-action-catch-catch-button"
+        class="poke-popover-action"
+        (click)="catchPokemon(pokemon.name)"
+        nz-button
+        [disabled]="isCaught(pokemon.name)"
+        nzBlock
+        [nzSize]="'small'"
+        [nzType]="'primary'"
+      >Catch</button>
+    </ng-template>
+  </nz-list-item>
+</nz-list>
+
+<nz-empty
+  *ngIf="pdPokemonList && !pdPokemonList.length"
+  [nzNotFoundContent]="'No pokemons found'"
+></nz-empty>
+
+<ng-template #pagination>
+  <nz-list-pagination
+  ></nz-list-pagination>
+</ng-template>

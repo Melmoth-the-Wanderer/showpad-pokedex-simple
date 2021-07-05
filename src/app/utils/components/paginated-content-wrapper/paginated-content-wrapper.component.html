@@ -1,0 +1,33 @@
+<nz-spin
+  [nzSpinning]="!!pdSpinning"
+  [nzDelay]="250"
+  [nzTip]="'Loading...'"
+>
+  <nz-pagination
+    *ngIf="pdShowPagination"
+    class="poke-pagination"
+    [nzPageIndex]="pdPageIndex"
+    [nzTotal]="pdElementsTotal"
+    nzShowQuickJumper
+    nzShowSizeChanger
+    [(nzPageSize)]="pdPageSize"
+    (nzPageIndexChange)="pdPageIndexChange.emit($event)"
+    (nzPageSizeChange)="pdPageSizeChange.emit($event)"
+  ></nz-pagination>
+
+  <ng-container *ngIf="pdContentTemplate">
+    <ng-container *ngTemplateOutlet="pdContentTemplate"></ng-container>
+  </ng-container>
+
+  <nz-pagination
+    *ngIf="pdShowPagination"
+    class="poke-pagination"
+    [nzPageIndex]="pdPageIndex"
+    [nzTotal]="pdElementsTotal"
+    nzShowQuickJumper
+    nzShowSizeChanger
+    [(nzPageSize)]="pdPageSize"
+    (nzPageIndexChange)="pdPageIndexChange.emit($event)"
+    (nzPageSizeChange)="pdPageSizeChange.emit($event)"
+  ></nz-pagination>
+</nz-spin>

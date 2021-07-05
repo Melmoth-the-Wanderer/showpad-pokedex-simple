@@ -1,0 +1,25 @@
+<h2
+  *ngIf="pdTitle"
+  nz-typography
+>{{ pdTitle }}</h2>
+
+<ng-container *ngIf="pdCustomTemplate">
+  <ng-container *ngTemplateOutlet="pdCustomTemplate"></ng-container>
+</ng-container>
+
+<poke-paginated-list-page
+  [pdContentTemplate]="pageContent"
+  [pdElementsTotal]="pdElementsTotal"
+  [pdPageIndex]="pageIndex"
+  [pdPageSize]="pageSize"
+  [pdShowPagination]="pdPokemonList && !!pdPokemonList.length"
+  [pdSpinning]="pdSpinning"
+  (pdPageIndexChange)="pageIndexChange($event)"
+  (pdPageSizeChange)="pageSizeChange($event)"
+></poke-paginated-list-page>
+
+<ng-template #pageContent>
+  <poke-list
+    [pdPokemonList]="pdPokemonList"
+  ></poke-list>
+</ng-template>
