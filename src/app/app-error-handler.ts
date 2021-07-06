@@ -1,6 +1,10 @@
 import {ErrorHandler, Injectable} from "@angular/core";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {ErrorHandlerPayload} from "./modules/utils/error-handler-payload";
+
+export interface ErrorHandlerPayload {
+  when: string;
+  error: any;
+}
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {

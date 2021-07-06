@@ -1,8 +1,19 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, TemplateRef, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NzDrawerRef, NzDrawerService} from "ng-zorro-antd/drawer";
 import {Subject} from "rxjs";
 import {takeUntil} from 'rxjs/operators';
+import {DRAWER_TOGGLE_SMALL_SIZE_BOUNDARY} from "../../../../constants/size.constants";
+import {PokeViewportSizeService} from "../../../../services/poke-viewport-size.service";
+import {getViewportWidth} from "../../../utils/functions/get-viewport-width";
 import {PokeDetailsPageComponent} from '../poke-details-page/poke-details-page.component';
 
 @Component({
@@ -22,17 +33,20 @@ import {PokeDetailsPageComponent} from '../poke-details-page/poke-details-page.c
     ':host { display: block; }'
   ],
 })
-export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
+export class PokeDetailsDrawerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('drawerFooter', {read: TemplateRef}) private drawerFooter: TemplateRef<any> | undefined = undefined;
 
   private componentDestroyed$ = new Subject<void>();
   private drawerRef: NzDrawerRef<PokeDetailsPageComponent> | undefined = undefined;
+  private drawerWidth = this.getDrawerSize(getViewportWidth());
+  private pokeName = '';
 
   constructor(
     private readonly drawerService: NzDrawerService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly viewport: PokeViewportSizeService,
   ) {
   }
 
@@ -41,9 +55,22 @@ export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
     this.componentDestroyed$.complete();
   }
 
+  public ngOnInit(): void {
+    this.viewport.viewportWidth
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(viewportWidth => {
+        const oldDrawerWidth = this.drawerWidth;
+        this.drawerWidth = this.getDrawerSize(viewportWidth);
+        if (oldDrawerWidth !== this.drawerWidth) {
+          this.openDrawer(this.pokeName);
+        }
+      });
+  }
+
   public ngAfterViewInit(): void {
     this.route.params.subscribe((params) => {
-      this.openDrawer(params['pokeName']);
+      this.pokeName = params['pokeName'];
+      this.openDrawer(this.pokeName);
     });
   }
 
@@ -61,7 +88,7 @@ export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
       nzKeyboard: false,
       nzPlacement: 'right',
       nzTitle: `Pokemon details`,
-      nzWidth: this.getDrawerSize(),
+      nzWidth: this.drawerWidth,
     });
     window.setTimeout(() => {
       this.drawerRef!.getContentComponent()!.pdDisplayNextPoke
@@ -76,20 +103,13 @@ export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
     }, 0);
   }
 
-  private getDrawerSize(): string {
-    const viewport = this.getViewportSize();
-    if (viewport < 500) {
-      return '90vw';
+  private getDrawerSize(viewportWidth: number): string {
+    if (viewportWidth && viewportWidth < DRAWER_TOGGLE_SMALL_SIZE_BOUNDARY) {
+      return '80vw';
     }
-    if (viewport < 700) {
-      return '70vw';
-    }
-    return '50vw';
+    return '60vw';
   }
 
-  private getViewportSize(): number {
-    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-  }
 
   public closeDrawer(): void {
     this.drawerRef?.close();

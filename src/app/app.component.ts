@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {fromEvent, Subject} from "rxjs";
+import {debounceTime, takeUntil} from "rxjs/operators";
 import {SIZER_TOGGLE_WINDOW_WIDTH_TRIGGER_PX} from './constants/size.constants';
+import {PokeViewportSizeService} from "./services/poke-viewport-size.service";
 import {GuiState} from "./store/gui-state";
 import {selectAppInitialized, selectAppRouteLoaded} from "./store/selectors/app-state-selectors";
 
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly store: Store<GuiState>,
+    private readonly viewport: PokeViewportSizeService,
   ) {
   }
 
@@ -31,21 +33,33 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.toggleSider();
+    this.viewport.viewportWidth
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(viewportWidth => {
+        const isSmallViewport = viewportWidth <= SIZER_TOGGLE_WINDOW_WIDTH_TRIGGER_PX;
+        this.resizeSider(isSmallViewport ? 'smaller' : 'larger');
+      });
     this.store.select(selectAppInitialized)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(isAppInitialized => this.isInitializing = !isAppInitialized);
     this.store.select(selectAppRouteLoaded)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(isRouteLoaded => this.isRouteLoading = !isRouteLoaded);
+    this.updateViewportServiceOnWindowResize();
   }
 
-  @HostListener('window:resize', ['$event'])
-  public onResize(_event: Event): void {
-    this.toggleSider();
+  private updateViewportServiceOnWindowResize(): void {
+    fromEvent(window, 'resize')
+      .pipe(
+        takeUntil(this.componentDestroyed$),
+        debounceTime(250)
+      )
+      .subscribe(() => {
+        this.viewport.triggerViewportUpdate();
+      });
   }
 
-  private toggleSider(): void {
-    this.isCollapsed = window.innerWidth < SIZER_TOGGLE_WINDOW_WIDTH_TRIGGER_PX;
+  private resizeSider(direction: 'smaller' | 'larger'): void {
+    this.isCollapsed = direction === 'smaller';
   }
 }
