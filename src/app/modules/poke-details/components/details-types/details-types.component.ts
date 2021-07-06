@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {DEFAULT_VISIBLE_POKE_DETAILS_COUNT} from 'src/app/constants/defaults.constants';
 import {NamesWithCount} from "./names-with-count";
 
 @Component({
@@ -14,7 +15,8 @@ export class DetailsTypesComponent {
   @Input() public pdPokeTypeName: string | null | undefined = undefined;
   @Output() public pdPokeNameClick = new EventEmitter<string>();
 
-  private readonly initialVisibleCount = 10;
+  @HostBinding('attr.data-smoke') private smokeTestAttrValue = 'poke-details-types';
+  private readonly initialVisibleCount = DEFAULT_VISIBLE_POKE_DETAILS_COUNT;
 
   public isCurrentPoke(pokeName: string): boolean {
     return this.pdPokeName === pokeName;

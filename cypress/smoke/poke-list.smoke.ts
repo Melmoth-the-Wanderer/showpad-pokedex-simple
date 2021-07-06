@@ -1,3 +1,5 @@
+import {DEFAULT_VISIBLE_POKE_DETAILS_COUNT} from "../../src/app/constants/defaults.constants";
+
 describe('Page list component', () => {
 
   before(() => {
@@ -46,5 +48,29 @@ describe('Page list component', () => {
       cy.wrap(row).find('[data-smoke="poke-name"]').contains('abomasnow');
     }));
   });
+
+  it(`Can render details`, () => {
+    cy.openFirstPokeDetailsDrawer();
+    cy.getElement('poke-details-moves').should('be.visible').then(movesContainer => {
+      cy.getElement('poke-moves-count').then(span => {
+        const totalMoves = ((span as any)[0] as HTMLSpanElement).innerHTML;
+        cy.wrap(movesContainer).find('[data-smoke="poke-move-link"]').should('have.length', DEFAULT_VISIBLE_POKE_DETAILS_COUNT);
+        cy.wrap(movesContainer).find('[data-smoke="poke-move-show-all-link"]').click();
+        cy.wrap(movesContainer).find('[data-smoke="poke-move-link"]').should('have.length', totalMoves);
+        cy.wrap(movesContainer).find('[data-smoke="poke-move-show-less-link"]').click();
+        cy.wrap(movesContainer).find('[data-smoke="poke-move-link"]').should('have.length', DEFAULT_VISIBLE_POKE_DETAILS_COUNT);
+      });
+    });
+    cy.getElement('poke-details-types').first().should('be.visible').then(typesContainer => {
+      cy.getElement('poke-names-count').then(span => {
+        const totalPokeNames = ((span as any)[0] as HTMLSpanElement).innerHTML;
+        cy.wrap(typesContainer).find('[data-smoke="poke-name-link"]').should('have.length', DEFAULT_VISIBLE_POKE_DETAILS_COUNT);
+        cy.wrap(typesContainer).find('[data-smoke="poke-name-show-all-link"]').click();
+        cy.wrap(typesContainer).find('[data-smoke="poke-name-link"]').should('have.length', totalPokeNames);
+        cy.wrap(typesContainer).find('[data-smoke="poke-name-show-less-link"]').click();
+        cy.wrap(typesContainer).find('[data-smoke="poke-name-link"]').should('have.length', DEFAULT_VISIBLE_POKE_DETAILS_COUNT);
+      });
+    });
+  })
 
 })

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ErrorHandler,
+  HostBinding,
   Input,
   OnDestroy,
   TemplateRef,
@@ -11,6 +12,7 @@ import {NzModalService} from "ng-zorro-antd/modal";
 import {IMove} from "pokeapi-typescript";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import {DEFAULT_VISIBLE_POKE_DETAILS_COUNT} from "../../../../constants/defaults.constants";
 import {PokeApiService} from "../../../../services/poke-api.service";
 import {MoveDetails} from "../../poke-details-page.component";
 
@@ -25,8 +27,10 @@ export class DetailsMovesComponent implements OnDestroy {
   @Input() public pdPokeMoveNames: string[] | null | undefined = undefined;
 
   @ViewChild('movesModalContent') private movesModalContentTemplate: TemplateRef<unknown> | undefined = undefined;
+  @HostBinding('attr.data-smoke') private smokeTestAttrValue = 'poke-details-moves';
+
   private componentDestroyed$ = new Subject<void>();
-  private readonly initialVisibleCount = 10;
+  private readonly initialVisibleCount = DEFAULT_VISIBLE_POKE_DETAILS_COUNT;
 
   public pokeMoveDetails: MoveDetails = this.resetMovesDetails();
   public pokeMoveLoading = false;

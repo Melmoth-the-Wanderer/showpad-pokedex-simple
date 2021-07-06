@@ -1,14 +1,16 @@
 <ng-container *ngIf="pdPokeMoveNames">
-  <h4 nz-typography>{{ pdPokeMoveNames.length }} moves:</h4>
+  <h4 nz-typography><span data-smoke="poke-moves-count">{{ pdPokeMoveNames.length }}</span> moves:</h4>
   <nz-tag
     *ngFor="let moveName of pdPokeMoveNames | slice:0:pokeMovesVisibleCount"
     class="poke-tag"
+    data-smoke="poke-move-link"
     (click)="openMoveDetails(moveName)"
     [nzColor]="previouslyClickedMove === moveName ? 'geekblue' : undefined"
   >{{ moveName }}</nz-tag>
   <nz-tag
     *ngIf="pokeMovesVisibleCount < pdPokeMoveNames.length"
     class="poke-tag"
+    data-smoke="poke-move-show-all-link"
     (click)="showAllMoves()"
     [nzColor]="'black'"
   >Show all ({{pdPokeMoveNames.length - pokeMovesVisibleCount}} more)
@@ -16,6 +18,7 @@
   <nz-tag
     *ngIf="pokeMovesVisibleCount === pdPokeMoveNames.length"
     class="poke-tag"
+    data-smoke="poke-move-show-less-link"
     (click)="showLessMoves()"
     [nzColor]="'black'"
   >Show less

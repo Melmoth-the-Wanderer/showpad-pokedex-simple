@@ -9,6 +9,7 @@ declare namespace Cypress {
     findElement(param: string): Chainable<Subject>;
     openFirstPokeCatchMenu(): any;
     releaseFirstPoke(): any;
+    openFirstPokeDetailsDrawer(): any;
   }
 }
 //
@@ -64,5 +65,13 @@ Cypress.Commands.add("openFirstPokeCatchMenu", () => {
 Cypress.Commands.add("releaseFirstPoke", () => {
   cy.getElement('poke-list-item').first().then((row => {
     cy.wrap(row).find('[data-smoke="poke-action-release"]').click();
+  }))
+})
+
+Cypress.Commands.add("openFirstPokeDetailsDrawer", () => {
+  cy.getElement('poke-list-item').first().then((row => {
+    cy.wrap(row).find('[data-smoke="poke-action-details"]').then(catchAction => {
+      cy.wrap(catchAction).click();
+    });
   }))
 })
