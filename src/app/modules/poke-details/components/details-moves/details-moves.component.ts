@@ -64,7 +64,6 @@ export class DetailsMovesComponent implements OnDestroy {
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(
         details => {
-          console.log(details);
           this.pokeMoveLoading = false;
           this.pokeMoveDetails = {
             damageClass: details.damage_class.name,
@@ -78,7 +77,6 @@ export class DetailsMovesComponent implements OnDestroy {
           this.errorHandler.handleError(error)
         }
       );
-    console.log(this.movesModalContentTemplate);
     this.modals.create({
       nzCancelText: null,
       nzContent: this.movesModalContentTemplate,
@@ -91,7 +89,6 @@ export class DetailsMovesComponent implements OnDestroy {
   }
 
   private parseEffectText(effectText: string, moveDetails: IMove): string {
-    console.log(effectText);
     const outerReg = /\$.*?%/;
     const group = effectText.match(outerReg);
     if (group) {
@@ -104,7 +101,7 @@ export class DetailsMovesComponent implements OnDestroy {
         }
       });
     }
-    console.log(group);
+
     return effectText;
   }
 
