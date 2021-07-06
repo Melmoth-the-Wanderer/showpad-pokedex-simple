@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {IPokemon} from "pokeapi-typescript";
-import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE, DEFAULT_TOTAL_ELEMENTS} from 'src/app/constants/size.constants';
+import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE, DEFAULT_TOTAL_ELEMENTS} from 'src/app/constants/defaults.constants';
 import {DataChanged} from '../../data-changed';
 
 @Component({

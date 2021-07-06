@@ -1,0 +1,23 @@
+<ng-container *ngIf="pdPokeTypeName && pdPokeNamesWithCount">
+  <h4 nz-typography>{{ pdPokeNamesWithCount.pokeNames.length }} other {{ pdPokeTypeName }} Pokemons:</h4>
+  <nz-tag
+    *ngFor="let pokeName of pdPokeNamesWithCount.pokeNames | slice:0:pdPokeNamesWithCount.visibleCount"
+    class="poke-tag"
+    (click)="pdPokeNameClick.emit(pokeName)"
+    [nzColor]="isCurrentPoke(pokeName) ? 'geekblue' : undefined"
+  >{{ pokeName }}</nz-tag>
+  <nz-tag
+    *ngIf="pdPokeNamesWithCount.visibleCount < pdPokeNamesWithCount.pokeNames.length"
+    class="poke-tag"
+    (click)="showAllPokemons()"
+    [nzColor]="'black'"
+  >Show all ({{pdPokeNamesWithCount.pokeNames.length - pdPokeNamesWithCount.visibleCount }} more)
+  </nz-tag>
+  <nz-tag
+    *ngIf="pdPokeNamesWithCount.visibleCount === pdPokeNamesWithCount.pokeNames.length"
+    class="poke-tag"
+    (click)="showLessPokemons()"
+    [nzColor]="'black'"
+  >Show less
+  </nz-tag>
+</ng-container>

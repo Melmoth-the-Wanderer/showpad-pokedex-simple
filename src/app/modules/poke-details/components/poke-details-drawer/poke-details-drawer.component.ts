@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NzDrawerRef, NzDrawerService} from "ng-zorro-antd/drawer";
 import {Subject} from "rxjs";
 import {takeUntil} from 'rxjs/operators';
-import {PokeDetailsComponent} from '../poke-details/poke-details.component';
+import {PokeDetailsPageComponent} from '../poke-details-page/poke-details-page.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,7 @@ export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('drawerFooter', {read: TemplateRef}) private drawerFooter: TemplateRef<any> | undefined = undefined;
 
   private componentDestroyed$ = new Subject<void>();
-  private drawerRef: NzDrawerRef<PokeDetailsComponent> | undefined = undefined;
+  private drawerRef: NzDrawerRef<PokeDetailsPageComponent> | undefined = undefined;
 
   constructor(
     private readonly drawerService: NzDrawerService,
@@ -53,7 +53,7 @@ export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
     }
     this.drawerRef = this.drawerService.create({
       nzClosable: false,
-      nzContent: PokeDetailsComponent,
+      nzContent: PokeDetailsPageComponent,
       nzContentParams: {
         pdPokeName: pokeName,
       },

@@ -1,0 +1,48 @@
+<ng-container *ngIf="pdPokeMoveNames">
+  <h4 nz-typography>{{ pdPokeMoveNames.length }} moves:</h4>
+  <nz-tag
+    *ngFor="let moveName of pdPokeMoveNames | slice:0:pokeMovesVisibleCount"
+    class="poke-tag"
+    (click)="openMoveDetails(moveName)"
+    [nzColor]="previouslyClickedMove === moveName ? 'geekblue' : undefined"
+  >{{ moveName }}</nz-tag>
+  <nz-tag
+    *ngIf="pokeMovesVisibleCount < pdPokeMoveNames.length"
+    class="poke-tag"
+    (click)="showAllMoves()"
+    [nzColor]="'black'"
+  >Show all ({{pdPokeMoveNames.length - pokeMovesVisibleCount}} more)
+  </nz-tag>
+  <nz-tag
+    *ngIf="pokeMovesVisibleCount === pdPokeMoveNames.length"
+    class="poke-tag"
+    (click)="showLessMoves()"
+    [nzColor]="'black'"
+  >Show less
+  </nz-tag>
+</ng-container>
+
+<ng-template #movesModalContent>
+  <nz-spin
+    [nzSpinning]="pokeMoveLoading"
+  >
+    Type:
+    <nz-tag
+      class="poke-tag poke-no-pointer"
+    >{{ pokeMoveDetails.type }}</nz-tag>
+    <br/>
+    Damage class:
+    <nz-tag
+      class="poke-tag poke-no-pointer"
+    >{{ pokeMoveDetails.damageClass }}</nz-tag>
+    <br/>
+    Effects:<br/>
+    <ul>
+      <li *ngFor="let effect of pokeMoveDetails.effects">
+        <nz-tag
+          class="poke-tag poke-no-pointer"
+        >{{ effect }}</nz-tag>
+      </li>
+    </ul>
+  </nz-spin>
+</ng-template>

@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {IPokemon} from "pokeapi-typescript";
 import {of, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, take, takeUntil, tap} from "rxjs/operators";
-import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from '../../constants/size.constants';
+import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from '../../constants/defaults.constants';
 import {pokeSlice} from "../utils/rx-pipes/poke-slice";
 import {ChangeDisplayedPokemons} from "../../store/actions/poke-state-actions";
 import {GuiState} from "../../store/gui-state";

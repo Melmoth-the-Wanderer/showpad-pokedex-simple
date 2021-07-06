@@ -1,0 +1,4 @@
+export const DEFAULT_PAGE_INDEX = 1;
+export const DEFAULT_PAGE_SIZE = 10;
+export const DEFAULT_TOTAL_ELEMENTS = 9999;
+export const DEFAULT_VISIBLE_POKE_DETAILS_COUNT = 20;

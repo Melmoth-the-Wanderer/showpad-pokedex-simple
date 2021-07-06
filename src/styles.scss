@@ -14,3 +14,14 @@ nz-statistic-number {
   display: block;
   text-align: center;
 }
+
+nz-tag.poke-tag {
+  margin-bottom: 4px;
+  cursor: pointer;
+  text-transform: capitalize;
+  white-space: pre-wrap;
+
+  &.poke-no-pointer {
+    cursor: auto;
+  }
+}

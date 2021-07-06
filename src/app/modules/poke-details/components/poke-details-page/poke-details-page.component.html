@@ -1,0 +1,29 @@
+<nz-spin
+  [nzSpinning]="pokeLoading"
+  [nzDelay]="250"
+>
+  <poke-details-title
+    [pdPokeAvatarUrl]="pokeAvatarUrl"
+    [pdPokeName]="pdPokeName"
+  ></poke-details-title>
+  <poke-details-stats
+    class="poke-stat-placeholder"
+    [pdPokeStats]="pokeStats"
+  ></poke-details-stats>
+  <poke-details-moves
+    class="poke-detail-section"
+    [pdPokeMoveNames]="pokeMoveNames"
+  ></poke-details-moves>
+  <div
+    *ngFor="let item of pokeNamesByType | keyvalue"
+    class="poke-detail-section"
+  >
+    <poke-details-types
+      [pdPokeName]="pdPokeName"
+      [pdPokeNamesWithCount]="item.value"
+      [pdPokeTypeName]="item.key"
+      (pdPokeNameClick)="changePoke($event)"
+    ></poke-details-types>
+  </div>
+</nz-spin>
+

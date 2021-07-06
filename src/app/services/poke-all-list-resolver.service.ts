@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import {IPokemon} from "pokeapi-typescript";
 import {Observable} from "rxjs";
 import {catchError, switchMap, take, tap} from "rxjs/operators";
-import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from "../constants/size.constants";
+import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from "../constants/defaults.constants";
 import {pokeSlice} from "../modules/utils/rx-pipes/poke-slice";
 import {ReportAppRouteLoaded, ReportAppRouteLoading} from "../store/actions/app-state-actions";
 import {UpdateDisplayedPokemons} from "../store/actions/poke-state-actions";

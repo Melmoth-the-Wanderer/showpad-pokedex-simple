@@ -1,0 +1,10 @@
+<div
+  *ngFor="let stat of (pdPokeStats || [])"
+  class="poke-stat"
+>
+  <nz-statistic
+    [nzValue]="stat.statValue"
+    [nzTitle]="stat.statName"
+  >
+  </nz-statistic>
+</div>
