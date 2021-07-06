@@ -7,14 +7,14 @@ import {PokeListResolverService} from './services/poke-list-resolver.service';
 
 const routes: Routes = [
   {
-    outlet: 'drawer-outlet',
-    path: 'poke-details',
-    loadChildren: () => import('./modules/poke-details/poke-details.module').then(m => m.PokeDetailsModule),
-  },
-  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'poke-list'
+  },
+  {
+    outlet: 'drawer-outlet',
+    path: 'poke-details',
+    loadChildren: () => import('./modules/poke-details/poke-details.module').then(m => m.PokeDetailsModule),
   },
   {
     component: MyPokemonsPageComponent,
@@ -25,6 +25,10 @@ const routes: Routes = [
     component: PokeListPageComponent,
     path: `${PokeListPageComponent.routeBasePath}`,
     resolve: {pokes: PokeListResolverService},
+  },
+  {
+    path: '**', 
+    redirectTo: `${PokeListPageComponent.routeBasePath}`, // TODO: 404 NF Component
   },
 ];
 
