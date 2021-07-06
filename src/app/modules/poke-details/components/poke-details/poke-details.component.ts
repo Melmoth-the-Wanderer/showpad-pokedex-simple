@@ -9,8 +9,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import {forkJoin} from "rxjs";
-import {Subject} from "rxjs/internal/Subject";
+import {forkJoin, Subject} from "rxjs";
 import {switchMap, takeUntil, tap} from "rxjs/operators";
 import {PokeApiService} from "../../../../services/poke-api.service";
 
@@ -50,7 +49,6 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
       this.api.getPokemon(this.pdPokeName)
         .pipe(
           takeUntil(this.componentDestroyed$),
-          tap(pokemon => console.log(pokemon)),
           tap(pokemon => {
             this.pokeStats = pokemon.stats.map(stat => <PokemonStatistic>{
               statName: stat.stat.name,

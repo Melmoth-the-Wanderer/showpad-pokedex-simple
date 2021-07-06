@@ -1,5 +1,5 @@
 import {Action} from "@ngrx/store";
-import {PokeSate, PokesStateShape} from "../../model/pokes-state";
+import {PokeSate, PokesStateShape} from "../model/pokes-state";
 import {ActionType} from "../actions/action-type";
 import {
   AddPokemonsToCaught,

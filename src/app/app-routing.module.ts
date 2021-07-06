@@ -1,15 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MyPokemonsPageComponent} from "./components/my-pokemons-page/my-pokemons-page.component";
-import {PokeListPageComponent} from "./components/poke-list-page/poke-list-page.component";
-import {PokeCaughtResolverService} from "./services/poke-caught-resolver.service";
-import {PokeListResolverService} from './services/poke-list-resolver.service';
+import {PokeAllListResolverService} from './services/poke-all-list-resolver.service';
+import {PokeCaughtListResolverService} from "./services/poke-caught-list-resolver.service";
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'poke-list'
+    redirectTo: 'all-pokemons'
   },
   {
     outlet: 'drawer-outlet',
@@ -17,18 +15,18 @@ const routes: Routes = [
     loadChildren: () => import('./modules/poke-details/poke-details.module').then(m => m.PokeDetailsModule),
   },
   {
-    component: MyPokemonsPageComponent,
-    path: `${MyPokemonsPageComponent.routeBasePath}`,
-    resolve: {pokes: PokeCaughtResolverService},
+    path: 'all-pokemons',
+    loadChildren: () => import('./modules/poke-all-list-page/poke-all-list-page.module').then(m => m.PokeAllListPageModule),
+    resolve: {pokes: PokeAllListResolverService}
   },
   {
-    component: PokeListPageComponent,
-    path: `${PokeListPageComponent.routeBasePath}`,
-    resolve: {pokes: PokeListResolverService},
+    path: 'my-pokemons',
+    loadChildren: () => import('./modules/poke-caught-list-page/poke-caught-list-page.module').then(m => m.PokeCaughtListPageModule),
+    resolve: {pokes: PokeCaughtListResolverService},
   },
   {
-    path: '**', 
-    redirectTo: `${PokeListPageComponent.routeBasePath}`, // TODO: 404 NF Component
+    path: '**',
+    redirectTo: 'all-pokemons', // TODO: 404 NF Component
   },
 ];
 

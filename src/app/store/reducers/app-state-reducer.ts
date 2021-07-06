@@ -1,6 +1,6 @@
 import {Action} from "@ngrx/store";
-import {AppState, AppStateShape} from "../../model/app-state";
 import {ActionType} from "../actions/action-type";
+import {AppState, AppStateShape} from "../model/app-state";
 
 export function appStateReducer(state: AppStateShape = new AppState(), action: Action): AppState {
   switch (action.type) {
@@ -10,8 +10,19 @@ export function appStateReducer(state: AppStateShape = new AppState(), action: A
         appInitialized: true,
       };
     }
+    case(ActionType.ReportAppRouteLoading): {
+      return {
+        ...state,
+        appRouteLoaded: false,
+      }
+    }
+    case(ActionType.ReportAppRouteLoaded): {
+      return {
+        ...state,
+        appRouteLoaded: true,
+      }
+    }
     default: {
-
       return state;
     }
   }

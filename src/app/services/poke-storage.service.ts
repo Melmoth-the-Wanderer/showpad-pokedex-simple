@@ -27,7 +27,7 @@ export class PokeStorageService {
     }
     this.addCaughtPokeNoCheck(pokeName);
     this.notifications.success(`Caught a Pokemon`, `'${pokeName}' caught successfully`);
-    if(this.getWishlistedPokeNames().includes(pokeName)) {
+    if (this.getWishlistedPokeNames().includes(pokeName)) {
       this.removeWishlistedPokeNoCheck(pokeName);
     }
   }
@@ -37,11 +37,9 @@ export class PokeStorageService {
       PokeStoragePokesCaughtKey,
       this.serializePokes([...this.getCaughtPokeNames(), pokeName]),
     );
-    console.log(`caught pokes after adding: ${this.getCaughtPokeNames()}`);
   }
 
   public removeCaughtPoke(pokeName: string): void {
-    console.log(`caught pokes before removing: ${this.getCaughtPokeNames()}`);
     if (!this.getCaughtPokeNames().includes(pokeName)) {
 
       throw new Error(`Pokemon '${pokeName}' not caught yet`);
@@ -62,10 +60,8 @@ export class PokeStorageService {
   public getCaughtPokeNames(): string[] {
     const item = localStorage.getItem(PokeStoragePokesCaughtKey);
     if (item) {
-
       return this.deserializePokes(item);
     }
-
     return [];
   }
 
@@ -97,15 +93,9 @@ export class PokeStorageService {
   public getWishlistedPokeNames(): string[] {
     const item = localStorage.getItem(PokeStoragePokesWishlistedKey);
     if (item) {
-
       return this.deserializePokes(item);
     }
-
     return [];
-  }
-
-  public old_isCaughtPokemonSaved(pokeName: string): boolean {
-    return this.getCaughtPokeNames().includes(pokeName);
   }
 
   private serializePokes(pokeNames: string[]): string {

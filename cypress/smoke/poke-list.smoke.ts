@@ -1,12 +1,11 @@
-
 describe('Page list component', () => {
 
   before(() => {
-    cy.visit('http://localhost:4200/');
+    cy.visit('http://localhost:4200/', {timeout: 20000});
   });
 
   it('Renders list of pokemons on entry', () => {
-    cy.get('app-poke-list').should('be.visible');
+    cy.get('app-poke-list', {timeout: 20000}).should('be.visible');
   });
 
   it('Should have paging available', () => {

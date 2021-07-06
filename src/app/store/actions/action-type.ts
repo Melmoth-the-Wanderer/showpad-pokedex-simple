@@ -2,6 +2,8 @@ export enum ActionType {
   InitializeApp = '[APP_INITIALIZER] Initialize app',
   InitialPokeResourcesLoaded = '[EFFECT] Done initializing Pokes resources loaded',
   ReportAppInitialized = '[EFFECT] App initialization done',
+  ReportAppRouteLoading = '[RESOLVER] App route loading',
+  ReportAppRouteLoaded = '[RESOLVER] App route loaded',
   UpdateDisplayedPokes = '[EFFECT] Update displayed Pokes',
   UpdateDisplayedCaughtPokes = '[EFFECT] Update displayed caught Pokes',
   UpdateDisplayedWishlistedPokes = '[EFFECT] Update displayed wishlisted Pokes',

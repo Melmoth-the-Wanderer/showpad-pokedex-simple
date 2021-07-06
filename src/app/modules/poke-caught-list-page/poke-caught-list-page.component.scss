@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+poke-caught-pokemons-section {
+  display: block;
+
+  &:not(:first-child) {
+    padding-top: 45px;
+    margin-top: 45px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+  }
+}

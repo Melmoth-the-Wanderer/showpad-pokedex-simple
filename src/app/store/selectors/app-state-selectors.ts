@@ -7,3 +7,8 @@ export const selectAppInitialized = createSelector(
   selectAppState,
   (state) => state.appInitialized,
 )
+
+export const selectAppRouteLoaded = createSelector(
+  selectAppState,
+  (state) => state.appRouteLoaded,
+)

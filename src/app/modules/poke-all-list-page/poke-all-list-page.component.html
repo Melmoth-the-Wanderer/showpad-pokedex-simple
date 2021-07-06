@@ -1,0 +1,19 @@
+<h2 nz-typography>List of Pokemons</h2>
+
+<poke-paginated-pokemon-list
+  [pdCustomTemplate]="customPageTemplate"
+  [pdElementsTotal]="pokemonNames.length"
+  [pdPokemonList]="pokeList"
+  [pdSpinning]="refreshingPokemons"
+  (pdPageIndexChange)="pageIndexChange($event)"
+  (pdPageSizeChange)="pageSizeChange($event)"
+></poke-paginated-pokemon-list>
+
+<ng-template #customPageTemplate>
+  <poke-search-input
+    [(pdIsTyping)]="isUserTyping"
+    (pdClearClick)="clearSearchInput()"
+    (pdInput)="pokeSearchControl.setValue($event)"
+  ></poke-search-input>
+
+</ng-template>

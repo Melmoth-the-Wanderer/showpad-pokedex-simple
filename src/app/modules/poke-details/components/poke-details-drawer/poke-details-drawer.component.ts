@@ -18,7 +18,9 @@ import {PokeDetailsComponent} from '../poke-details/poke-details.component';
       </button>
     </ng-template>
   `,
-  styles: [],
+  styles: [
+    ':host { display: block; }'
+  ],
 })
 export class PokeDetailsDrawerComponent implements AfterViewInit, OnDestroy {
 

@@ -19,7 +19,6 @@ import {PokeDetailsRoutingModule} from "./poke-details-routing.module";
   ],
   imports: [
     CommonModule,
-    PokeDetailsRoutingModule,
     NzAvatarModule,
     NzButtonModule,
     NzDrawerModule,
@@ -28,6 +27,7 @@ import {PokeDetailsRoutingModule} from "./poke-details-routing.module";
     NzSpinModule,
     NzStatisticModule,
     NzTagModule,
+    PokeDetailsRoutingModule,
   ]
 })
 export class PokeDetailsModule {

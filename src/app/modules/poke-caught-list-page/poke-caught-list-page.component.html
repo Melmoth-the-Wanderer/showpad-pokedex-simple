@@ -1,0 +1,16 @@
+<poke-caught-pokemons-section
+  [pdElementsTotal]="allCaughtPokemonNames.length"
+  [pdPokeList]="displayedCaughtPokemons"
+  [pdRefreshingPokemons]="refreshingPokemons"
+  [pdTitle]="'Pokemons I caught'"
+  (pdDataChanged)="refreshCaughtPokeList($event)"
+></poke-caught-pokemons-section>
+
+<poke-caught-pokemons-section
+  *ngIf="displayedWishlistedPokemons.length"
+  [pdElementsTotal]="allWishlistedPokemonNames.length"
+  [pdPokeList]="displayedWishlistedPokemons"
+  [pdRefreshingPokemons]="refreshingPokemons"
+  [pdTitle]="'Pokemons I wish to catch'"
+  (pdDataChanged)="refreshWishlistedPokeList($event)"
+></poke-caught-pokemons-section>

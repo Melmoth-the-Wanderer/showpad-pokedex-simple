@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.poke-pokemon-name {
+  text-transform: capitalize;
+}
+
+.poke-popover-action {
+  &:first-child {
+    margin-bottom: 3px;
+  }
+}
