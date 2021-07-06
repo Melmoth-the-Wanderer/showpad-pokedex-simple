@@ -37,7 +37,7 @@ describe('Page list component', () => {
   });
 
   it('Can find Pokemon by name', () => {
-    cy.getElement('poke-search-box').type('abr');
+    cy.getElement('poke-search-box').type('Abr');
     cy.wait(1000);
     cy.getElement('poke-list-item').should('have.length', 3).first().then((row => {
       cy.wrap(row).find('[data-smoke="poke-name"]').contains('abra');

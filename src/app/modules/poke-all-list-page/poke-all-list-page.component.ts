@@ -64,7 +64,7 @@ export class PokeAllListPageComponent implements OnInit, OnDestroy {
       )
       .subscribe((searchTerm: string) => {
         this.isUserTyping = false;
-        this.refreshPokeListWithFilter(searchTerm);
+        this.refreshPokeListWithFilter(searchTerm.toLowerCase());
       });
   }
 
