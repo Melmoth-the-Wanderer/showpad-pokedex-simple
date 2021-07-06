@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import PokeAPI, {INamedApiResourceList, IPokemon} from "pokeapi-typescript";
+import PokeAPI, {INamedApiResourceList, IPokemon, IType} from "pokeapi-typescript";
 import {INamedApiResource} from "pokeapi-typescript/dist/interfaces/Utility/NamedApiResourceList";
 import {forkJoin, from, Observable, of} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, take} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,10 @@ export class PokeApiService {
   }
 
   private pokeResourceSorter(a: INamedApiResource<IPokemon>, b: INamedApiResource<IPokemon>): number {
-    if(a.name < b.name) {
+    if (a.name < b.name) {
       return -1;
     }
-    if(a.name > b.name) {
+    if (a.name > b.name) {
       return 1;
     }
     return 0;
@@ -32,12 +32,24 @@ export class PokeApiService {
   }
 
   public getPokemons(pokemonNames: string[]): Observable<IPokemon[]> {
-    if(pokemonNames.length) {
+    if (pokemonNames.length) {
 
       return forkJoin(pokemonNames.map(name => from(PokeAPI.Pokemon.fetch(name))));
     }
 
     return of([]);
+  }
+
+  public getPokemon(pokemonName: string): Observable<IPokemon> {
+    if (!pokemonName) {
+
+      throw new Error(`Invalid Pokemon name`);
+    }
+    return from(PokeAPI.Pokemon.fetch(pokemonName)).pipe(take(1));
+  }
+
+  public getType(typeName: string): Observable<IType> {
+    return from(PokeAPI.Type.fetch(typeName)).pipe(take(1));
   }
 
 }

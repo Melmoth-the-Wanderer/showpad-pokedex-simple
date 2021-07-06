@@ -1,1 +1,32 @@
-<p>poke-details works!</p>
+<nz-spin
+  [nzSpinning]="pokeLoading"
+  [nzDelay]="250"
+>
+  <div class="poke-title">
+    <nz-avatar
+      [nzSize]="'large'"
+      [nzSrc]="pokeAvatarUrl"
+    ></nz-avatar>
+    <span class="poke-name">{{ pdPokeName }}</span>
+  </div>
+  <div class="poke-stat-placeholder">
+    <div
+      *ngFor="let stat of pokeStats"
+      class="poke-stat"
+    >
+      <nz-statistic
+        [nzValue]="stat.statValue"
+        [nzTitle]="stat.statName"
+      >
+      </nz-statistic>
+    </div>
+  </div>
+  <div *ngFor="let item of pokeNamesByType | keyvalue">
+    <h3>Other Pokemons of type {{ item.key }}:</h3>
+    <nz-tag
+      *ngFor="let pokeName of item.value"
+      (click)="changePoke(pokeName)"
+      [nzColor]="isCurrentPoke(pokeName) ? 'geekblue' : undefined"
+    >{{ pokeName }}</nz-tag>
+  </div>
+</nz-spin>
