@@ -2,10 +2,12 @@
   display: block;
 }
 
-ul {
-  padding-left: 10px;
+.poke-move-details-container {
+  display: grid;
+  grid-template-columns: auto 2fr;
+  grid-gap: 5px;
+}
 
-  li {
-    list-style-type: none;
-  }
+.poke-grid-tag {
+  width: 100%;
 }

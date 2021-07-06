@@ -13,8 +13,6 @@ import {Store} from '@ngrx/store';
 import {IPokemon} from "pokeapi-typescript";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
-import {SMALL_VIEWPORT_WIDTH_BOUNDARY} from "../../../../constants/size.constants";
-import {PokeViewportSizeService} from "../../../../services/poke-viewport-size.service";
 import {
   CatchPokemon,
   ReleasePokemon,
@@ -39,7 +37,6 @@ export class PokeListComponent implements OnChanges, OnInit, OnDestroy {
 
   public pokeTypesByName: { [type: string]: string } = {};
   public isCatchPopoverVisible = false;
-  public isSmallScreen = false;
 
   private allCaughtPokeNames: string[] = [];
   private allWishlistedPokeNames: string[] = [];
@@ -49,7 +46,6 @@ export class PokeListComponent implements OnChanges, OnInit, OnDestroy {
     private readonly store: Store<GuiState>,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
-    private readonly viewport: PokeViewportSizeService,
   ) {
   }
 
@@ -59,12 +55,6 @@ export class PokeListComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.viewport.viewportWidth
-      .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe(viewportWidth => {
-        this.isSmallScreen = viewportWidth <= SMALL_VIEWPORT_WIDTH_BOUNDARY
-        this.cdr.markForCheck();
-      });
     this.store.select(selectAllCaughtPokemonNames)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(coughtNames => {

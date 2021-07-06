@@ -29,23 +29,21 @@
   <nz-spin
     [nzSpinning]="pokeMoveLoading"
   >
-    Type:
-    <nz-tag
-      class="poke-tag poke-no-pointer"
-    >{{ pokeMoveDetails.type }}</nz-tag>
-    <br/>
-    Damage class:
-    <nz-tag
-      class="poke-tag poke-no-pointer"
-    >{{ pokeMoveDetails.damageClass }}</nz-tag>
-    <br/>
-    Effects:<br/>
-    <ul>
-      <li *ngFor="let effect of pokeMoveDetails.effects">
+    <div class="poke-move-details-container">
+      <span>Type:</span>
+      <nz-tag
+        class="poke-tag poke-no-pointer poke-grid-tag"
+      >{{ pokeMoveDetails.type }}</nz-tag>
+      <span>Damage class:</span>
+      <nz-tag
+        class="poke-tag poke-no-pointer poke-grid-tag"
+      >{{ pokeMoveDetails.damageClass }}</nz-tag>
+      <span>Effects:</span>
+      <div *ngFor="let effect of pokeMoveDetails.effects">
         <nz-tag
-          class="poke-tag poke-no-pointer"
+          class="poke-tag poke-no-pointer poke-grid-tag"
         >{{ effect }}</nz-tag>
-      </li>
-    </ul>
+      </div>
+    </div>
   </nz-spin>
 </ng-template>

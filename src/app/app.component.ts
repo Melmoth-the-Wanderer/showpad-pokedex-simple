@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {fromEvent, Subject} from "rxjs";
 import {debounceTime, takeUntil} from "rxjs/operators";
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private componentDestroyed$ = new Subject<void>();
 
   constructor(
+    private readonly cdr: ChangeDetectorRef,
     private readonly store: Store<GuiState>,
     private readonly viewport: PokeViewportSizeService,
   ) {
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(viewportWidth => {
         const isSmallViewport = viewportWidth <= SIZER_TOGGLE_WINDOW_WIDTH_TRIGGER_PX;
         this.resizeSider(isSmallViewport ? 'smaller' : 'larger');
+        this.cdr.markForCheck();
       });
     this.store.select(selectAppInitialized)
       .pipe(takeUntil(this.componentDestroyed$))

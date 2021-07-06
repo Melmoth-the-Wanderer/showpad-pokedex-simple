@@ -4,6 +4,7 @@
 >
   <nz-list-item
     *ngFor="let pokemon of pdPokemonList"
+    class="poke-row"
     data-smoke="poke-list-item"
   >
     <nz-list-item-meta
@@ -20,7 +21,6 @@
     <ul nz-list-item-actions>
       <nz-list-item-action>
         <a
-          *ngIf="!isSmallScreen || !isCaught(pokemon.name)"
           data-smoke="poke-action-catch"
           [attr.disabled]="isCaught(pokemon.name) ? '' : null"
           nz-popover
@@ -30,7 +30,6 @@
       </nz-list-item-action>
       <nz-list-item-action>
         <a
-          *ngIf="!isSmallScreen || isCaught(pokemon.name)"
           data-smoke="poke-action-release"
           (click)="releasePokemon(pokemon.name)"
           [attr.disabled]="!isCaught(pokemon.name) ? '' : null"

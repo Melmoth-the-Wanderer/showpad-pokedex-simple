@@ -1,4 +1,4 @@
-@import './../styles';
+@import './../variables';
 
 .poke-main-layout {
   min-height: 100%;
@@ -32,7 +32,7 @@ nz-sider {
   margin: 0 10px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: $small-viewport-width-boundary) {
   .poke-page-header {
     display: none
   }

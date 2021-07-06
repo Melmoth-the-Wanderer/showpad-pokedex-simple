@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-$max-page-content-width: 1000px;
+@import 'variables.scss';
 
 nz-list-item-meta-avatar {
   align-self: center;
@@ -23,5 +23,26 @@ nz-tag.poke-tag {
 
   &.poke-no-pointer {
     cursor: auto;
+  }
+}
+
+@media screen and (max-width: $small-viewport-width-boundary) {
+  .poke-row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: initial;
+
+    ul {
+      margin: 0;
+
+      li {
+        em {
+          display: none;
+        }
+        a+em {
+          display: block;
+        }
+      }
+    }
   }
 }
