@@ -11,7 +11,7 @@ import {NzModalService} from "ng-zorro-antd/modal";
 import {IMove} from "pokeapi-typescript";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
-import {PokeApiService} from "../../../../../../services/poke-api.service";
+import {PokeApiService} from "../../../../services/poke-api.service";
 import {MoveDetails} from "../../poke-details-page.component";
 
 @Component({

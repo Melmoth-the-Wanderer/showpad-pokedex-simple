@@ -11,10 +11,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NzDrawerRef, NzDrawerService} from "ng-zorro-antd/drawer";
 import {Subject} from "rxjs";
 import {takeUntil} from 'rxjs/operators';
-import {DRAWER_TOGGLE_SMALL_SIZE_BOUNDARY} from "../../../../constants/size.constants";
-import {PokeViewportSizeService} from "../../../../services/poke-viewport-size.service";
-import {getViewportWidth} from "../../../utils/functions/get-viewport-width";
-import {PokeDetailsPageComponent} from '../poke-details-page/poke-details-page.component';
+import {DRAWER_TOGGLE_MEDIUM_SIZE_BOUNDARY, DRAWER_TOGGLE_SMALL_SIZE_BOUNDARY} from "../../constants/size.constants";
+import {PokeViewportSizeService} from "../../services/poke-viewport-size.service";
+import {getViewportWidth} from "../utils/functions/get-viewport-width";
+import {PokeDetailsPageComponent} from './poke-details-page.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -107,7 +107,10 @@ export class PokeDetailsDrawerComponent implements OnInit, AfterViewInit, OnDest
     if (viewportWidth && viewportWidth < DRAWER_TOGGLE_SMALL_SIZE_BOUNDARY) {
       return '80vw';
     }
-    return '60vw';
+    if(viewportWidth < DRAWER_TOGGLE_MEDIUM_SIZE_BOUNDARY) {
+      return '60vw';
+    }
+    return '600px';
   }
 
 

@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import {forkJoin, Subject} from "rxjs";
 import {switchMap, takeUntil, tap} from "rxjs/operators";
-import {DEFAULT_VISIBLE_POKE_DETAILS_COUNT} from "../../../../constants/defaults.constants";
-import {PokeApiService} from "../../../../services/poke-api.service";
+import {DEFAULT_VISIBLE_POKE_DETAILS_COUNT} from "../../constants/defaults.constants";
+import {PokeApiService} from "../../services/poke-api.service";
 import {PokemonStatistic} from './components/details-stats/pokemon-statistic';
 import {NamesWithCount} from './components/details-types/names-with-count';
 

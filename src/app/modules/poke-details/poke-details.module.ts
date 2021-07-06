@@ -10,13 +10,13 @@ import {NzSpinModule} from "ng-zorro-antd/spin";
 import {NzStatisticModule} from "ng-zorro-antd/statistic";
 import {NzTagModule} from "ng-zorro-antd/tag";
 import {NzTypographyModule} from "ng-zorro-antd/typography";
-import {PokeDetailsDrawerComponent} from './components/poke-details-drawer/poke-details-drawer.component';
-import {PokeDetailsPageComponent} from './components/poke-details-page/poke-details-page.component';
+import {PokeDetailsDrawerComponent} from './poke-details-drawer.component';
+import {PokeDetailsPageComponent} from './poke-details-page.component';
 import {PokeDetailsRoutingModule} from "./poke-details-routing.module";
-import { DetailsTitleComponent } from './components/poke-details-page/components/details-title/details-title.component';
-import { DetailsStatsComponent } from './components/poke-details-page/components/details-stats/details-stats.component';
-import { DetailsMovesComponent } from './components/poke-details-page/components/details-moves/details-moves.component';
-import { DetailsTypesComponent } from './components/poke-details-page/components/details-types/details-types.component';
+import { DetailsTitleComponent } from './components/details-title/details-title.component';
+import { DetailsStatsComponent } from './components/details-stats/details-stats.component';
+import { DetailsMovesComponent } from './components/details-moves/details-moves.component';
+import { DetailsTypesComponent } from './components/details-types/details-types.component';
 
 @NgModule({
   declarations: [

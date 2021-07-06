@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PokeDetailsDrawerComponent} from "./components/poke-details-drawer/poke-details-drawer.component";
+import {PokeDetailsDrawerComponent} from "./poke-details-drawer.component";
 
 const routes: Routes = [
   {
