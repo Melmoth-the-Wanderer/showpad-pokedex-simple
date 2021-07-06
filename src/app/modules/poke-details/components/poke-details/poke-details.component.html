@@ -7,7 +7,7 @@
       [nzSize]="'large'"
       [nzSrc]="pokeAvatarUrl"
     ></nz-avatar>
-    <span class="poke-name">{{ pdPokeName }}</span>
+    <h3 nz-typography class="poke-name">{{ pdPokeName }}</h3>
   </div>
   <div class="poke-stat-placeholder">
     <div
@@ -21,12 +21,57 @@
       </nz-statistic>
     </div>
   </div>
-  <div *ngFor="let item of pokeNamesByType | keyvalue">
-    <h3>Other Pokemons of type {{ item.key }}:</h3>
+  <div class="poke-detail-section">
+    <h4 nz-typography>Moves ({{pokeMoveNames.length}})</h4>
     <nz-tag
-      *ngFor="let pokeName of item.value"
+      *ngFor="let moveName of pokeMoveNames | slice:0:pokeMovesVisibleCount"
+      (click)="openMoveDetails(moveName)"
+      [nzColor]="previouslyClickedMove === moveName ? 'geekblue' : undefined"
+    >{{ moveName }}</nz-tag>
+    <nz-tag
+      *ngIf="pokeMovesVisibleCount < pokeMoveNames.length"
+      (click)="showAllMoves()"
+      [nzColor]="'black'"
+    >Show all ({{pokeMoveNames.length-pokeMovesVisibleCount}} more)</nz-tag>
+    <nz-tag
+      *ngIf="pokeMovesVisibleCount === pokeMoveNames.length"
+      (click)="showLessMoves()"
+      [nzColor]="'black'"
+    >Show less</nz-tag>
+  </div>
+  <div
+    *ngFor="let item of pokeNamesByType | keyvalue"
+    class="poke-detail-section"
+  >
+    <h4 nz-typography>Other {{ item.key }} Pokemons:</h4>
+    <nz-tag
+      *ngFor="let pokeName of item.value.pokeNames | slice:0:pokeNamesByType[item.key].visibleCount"
       (click)="changePoke(pokeName)"
       [nzColor]="isCurrentPoke(pokeName) ? 'geekblue' : undefined"
     >{{ pokeName }}</nz-tag>
+    <nz-tag
+      *ngIf="pokeNamesByType[item.key].visibleCount < pokeNamesByType[item.key].pokeNames.length"
+      (click)="showAllPokemonsOfType(item.key)"
+      [nzColor]="'black'"
+    >Show all ({{pokeNamesByType[item.key].pokeNames.length-pokeNamesByType[item.key].visibleCount }} more)</nz-tag>
+    <nz-tag
+      *ngIf="pokeNamesByType[item.key].visibleCount === pokeNamesByType[item.key].pokeNames.length"
+      (click)="showLessPokemonsOfType(item.key)"
+      [nzColor]="'black'"
+    >Show less</nz-tag>
   </div>
 </nz-spin>
+
+<ng-template #movesModalContent>
+  <div>
+    <nz-spin
+      [nzSpinning]="pokeMoveLoading"
+    ></nz-spin>
+    Type: <nz-tag class="poke-no-pointer">{{ pokeMoveDetails.type }}</nz-tag><br/>
+    Damage class: <nz-tag class="poke-no-pointer">{{ pokeMoveDetails.damageClass }}</nz-tag><br/>
+    Effects:<br/>
+    <ul>
+      <li *ngFor="let effect of pokeMoveDetails.effects"><nz-tag class="poke-no-pointer">{{ effect }}</nz-tag></li>
+    </ul>
+  </div>
+</ng-template>

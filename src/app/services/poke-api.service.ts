@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import PokeAPI, {INamedApiResourceList, IPokemon, IType} from "pokeapi-typescript";
+import PokeAPI, {IMove, INamedApiResourceList, IPokemon, IType} from "pokeapi-typescript";
 import {INamedApiResource} from "pokeapi-typescript/dist/interfaces/Utility/NamedApiResourceList";
 import {forkJoin, from, Observable, of} from 'rxjs';
 import {map, switchMap, take} from 'rxjs/operators';
@@ -50,6 +50,10 @@ export class PokeApiService {
 
   public getType(typeName: string): Observable<IType> {
     return from(PokeAPI.Type.fetch(typeName)).pipe(take(1));
+  }
+
+  public getMove(moveName: string): Observable<IMove> {
+    return from(PokeAPI.Move.fetch(moveName)).pipe(take(1));
   }
 
 }
