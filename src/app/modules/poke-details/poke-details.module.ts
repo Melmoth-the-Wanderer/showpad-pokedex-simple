@@ -19,10 +19,13 @@ import { DetailsMovesComponent } from './components/details-moves/details-moves.
 import { DetailsTypesComponent } from './components/details-types/details-types.component';
 
 @NgModule({
+  exports: [
+    PokeDetailsPageComponent
+  ],
   declarations: [
-    DetailsTitleComponent,
-    DetailsStatsComponent,
     DetailsMovesComponent,
+    DetailsStatsComponent,
+    DetailsTitleComponent,
     DetailsTypesComponent,
     PokeDetailsDrawerComponent,
     PokeDetailsPageComponent,

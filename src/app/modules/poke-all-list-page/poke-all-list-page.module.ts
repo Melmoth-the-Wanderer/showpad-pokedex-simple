@@ -12,9 +12,12 @@ import {PokeAllListPageComponent} from "./poke-all-list-page.component";
 import {PokeAllListRoutingModule} from "./poke-all-poke-list-routing.module";
 
 @NgModule({
+  exports: [
+    PokeAllListPageComponent
+  ],
   declarations: [
     PokeAllListPageComponent,
-    SearchInputComponent
+    SearchInputComponent,
   ],
   imports: [
     CommonModule,
@@ -28,8 +31,5 @@ import {PokeAllListRoutingModule} from "./poke-all-poke-list-routing.module";
     PokeAllListRoutingModule,
     ReactiveFormsModule,
   ],
-  exports: [
-    PokeAllListPageComponent
-  ]
 })
 export class PokeAllListPageModule { }

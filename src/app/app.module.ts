@@ -21,8 +21,6 @@ import {environment} from '../environments/environment';
 import {AppErrorHandler} from "./app-error-handler";
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PokeCaughtSectionComponent} from './modules/poke-caught-list-page/components/poke-caught-section/poke-caught-section.component';
-import {PokeCaughtListPageComponent} from './modules/poke-caught-list-page/poke-caught-list-page.component';
 import {PokeUtilsModule} from "./modules/utils/utils.module";
 import {PokeApiService} from "./services/poke-api.service";
 import {InitializeApp} from "./store/actions/app-state-actions";
@@ -57,8 +55,6 @@ export function initializeApp(api: PokeApiService, store: Store<GuiState>): () =
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    PokeCaughtListPageComponent,
-    PokeCaughtSectionComponent,
   ],
   imports: [
     AppRoutingModule,
