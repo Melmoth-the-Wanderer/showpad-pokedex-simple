@@ -2,13 +2,13 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
 import {FormControl} from "@angular/forms";
 import {Store} from '@ngrx/store';
 import {IPokemon} from "pokeapi-typescript";
-import {of, Subject} from "rxjs";
-import {debounceTime, distinctUntilChanged, take, takeUntil, tap} from "rxjs/operators";
+import {of, Subject, timer} from "rxjs";
+import {debounce, distinctUntilChanged, take, takeUntil, tap} from "rxjs/operators";
 import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from '../../constants/defaults.constants';
-import {pokeSlice} from "../utils/rx-pipes/poke-slice";
 import {ChangeDisplayedPokemons} from "../../store/actions/poke-state-actions";
 import {GuiState} from "../../store/gui-state";
 import {selectAllPokeNames, selectDisplayedPokemons} from "../../store/selectors/poke-state-selectors";
+import {pokeSlice} from "../utils/rx-pipes/poke-slice";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +30,7 @@ export class PokeAllListPageComponent implements OnInit, OnDestroy {
     return this.allPokemonNames;
   }
 
-  private componentDestroyed = new Subject<void>();
+  private componentDestroyed$ = new Subject<void>();
   private pageIndex = DEFAULT_PAGE_INDEX;
   private pageSize = DEFAULT_PAGE_SIZE;
 
@@ -44,26 +44,29 @@ export class PokeAllListPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.componentDestroyed.next();
-    this.componentDestroyed.complete();
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
   public ngOnInit(): void {
     this.store.select(selectAllPokeNames)
-      .pipe(takeUntil(this.componentDestroyed))
+      .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(pokeNames => this.allPokemonNames = pokeNames);
     this.store.select(selectDisplayedPokemons)
-      .pipe(takeUntil(this.componentDestroyed))
+      .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(pokemons => this.handleDisplayedPokesChanged(pokemons));
     this.pokeSearchControl.valueChanges
       .pipe(
-        takeUntil(this.componentDestroyed),
-        tap(() => this.isUserTyping = true),
-        debounceTime(750),
+        takeUntil(this.componentDestroyed$),
+        debounce(() => {
+          this.isUserTyping = true;
+          return timer(750).pipe(
+            tap(() => this.isUserTyping = false)
+          );
+        }),
         distinctUntilChanged(),
       )
       .subscribe((searchTerm: string) => {
-        this.isUserTyping = false;
         this.refreshPokeListWithFilter(searchTerm.toLowerCase());
       });
   }

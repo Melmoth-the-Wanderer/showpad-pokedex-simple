@@ -1,11 +1,9 @@
 <form nz-form>
   <nz-form-item>
-    <nz-form-control
-      nzErrorTip="Please input your username!"
-    >
+    <nz-form-control>
       <nz-input-group
         class="poke-input-icon-placeholder"
-        [nzAddOnBefore]="'Search by name'"
+        [nzAddOnBefore]="isSmallViewport ? undefined : 'Search by name'"
         [nzPrefixIcon]="'search'"
         [nzSuffix]="suffixIconClear"
       >
