@@ -9,10 +9,10 @@ export class ReportAppInitialized implements Action {
   public readonly type = ActionType.ReportAppInitialized;
 }
 
-export class ReportAppRouteLoading implements Action {
-  public readonly type = ActionType.ReportAppRouteLoading
+export class ReportAppRouteDataResolving implements Action {
+  public readonly type = ActionType.ReportAppRouteDataResolving;
 }
 
-export class ReportAppRouteLoaded implements Action {
-  public readonly type = ActionType.ReportAppRouteLoaded
+export class ReportAppRouteDataResolved implements Action {
+  public readonly type = ActionType.ReportAppRouteDataResolved;
 }

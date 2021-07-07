@@ -1,9 +1,9 @@
 export interface AppStateShape {
   appInitialized: boolean;
-  appRouteLoaded: boolean;
+  appRouteDataResolved: boolean;
 }
 
 export class AppState implements AppStateShape {
   public appInitialized = false;
-  public appRouteLoaded = false;
+  public appRouteDataResolved = false;
 }

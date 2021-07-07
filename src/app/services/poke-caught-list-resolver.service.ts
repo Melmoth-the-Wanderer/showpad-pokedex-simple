@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 import {catchError, mergeMap, switchMap, take, tap} from "rxjs/operators";
 import {DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE} from "../constants/defaults.constants";
 import {pokeSlice} from "../modules/utils/rx-pipes/poke-slice";
-import {ReportAppRouteLoaded, ReportAppRouteLoading} from "../store/actions/app-state-actions";
+import {ReportAppRouteDataResolved, ReportAppRouteDataResolving} from "../store/actions/app-state-actions";
 import {UpdateDisplayedCaughtPokemons, UpdateDisplayedWishlistedPokemons} from "../store/actions/poke-state-actions";
 import {GuiState} from "../store/gui-state";
 import {selectAllCaughtPokemonNames, selectAllWishlistedPokemonNames} from "../store/selectors/poke-state-selectors";
@@ -25,7 +25,7 @@ export class PokeCaughtListResolverService implements Resolve<IPokemon[]> {
   }
 
   public resolve(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<IPokemon[]> {
-    this.store.dispatch(new ReportAppRouteLoading());
+    this.store.dispatch(new ReportAppRouteDataResolving());
 
     return this.store.select(selectAllCaughtPokemonNames)
       .pipe(
@@ -48,7 +48,7 @@ export class PokeCaughtListResolverService implements Resolve<IPokemon[]> {
             tap(pokemons => this.store.dispatch(new UpdateDisplayedWishlistedPokemons({
               pokemons: pokemons
             }))),
-            tap(() => this.store.dispatch(new ReportAppRouteLoaded())),
+            tap(() => this.store.dispatch(new ReportAppRouteDataResolved())),
           )),
         ))
       )

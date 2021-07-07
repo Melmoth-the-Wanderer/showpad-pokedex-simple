@@ -1,7 +1,7 @@
 <nz-spin
   [nzTip]="'Downloading...'"
   [nzSize]="'large'"
-  [nzSpinning]="isInitializing || isRouteLoading"
+  [nzSpinning]="isInitializing || isRouteLoading || isRouteResolvingData"
   [nzDelay]="250"
 >
   <nz-layout class="poke-main-layout">

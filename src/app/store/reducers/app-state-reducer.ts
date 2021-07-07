@@ -10,16 +10,16 @@ export function appStateReducer(state: AppStateShape = new AppState(), action: A
         appInitialized: true,
       };
     }
-    case(ActionType.ReportAppRouteLoading): {
+    case(ActionType.ReportAppRouteDataResolving): {
       return {
         ...state,
-        appRouteLoaded: false,
+        appRouteDataResolved: false,
       }
     }
-    case(ActionType.ReportAppRouteLoaded): {
+    case(ActionType.ReportAppRouteDataResolved): {
       return {
         ...state,
-        appRouteLoaded: true,
+        appRouteDataResolved: true,
       }
     }
     default: {
